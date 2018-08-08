@@ -7,15 +7,32 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 }*/)
 export class ApiService {
 
+	public pageLimit:number = 10; 
 	public baseUrl : any = '';
-    public pageLimit : any = '';
+	public uploadPath : any = '';
+
   	constructor(private http : Http, private configService : ConfigService) {
   		this.baseUrl = configService.apiUrl;
-  		this.pageLimit = 10;
+  		this.uploadPath = this.configService.apiUrl.replace('index.php/','')+'assets/uploads/';
+  	}  
+
+  	isLogin(){
+  		if(localStorage.getItem('access_token') !=''){
+  			if(localStorage.getItem('access_token') == null){
+  				return false;
+  			}
+  			return true;
+  		}else{
+  			return false;
+  		}
   	}
 
   	getToken(){
-  		return 'fghgfhgfhf354f3h4fg3h54h5g4fg5h4gf5h4';
+  		return localStorage.getItem('access_token');
+  	}
+
+  	filterData(data){
+  		return data.json();
   	}
 
   	submitRequest(aRequest){        
@@ -37,9 +54,14 @@ export class ApiService {
         
     }
 
+    parseResponse(res){
+    	let response = res.json();
+    	return response.apiResponse;
+    }
+
     login(){
 		return {
-			url: this.baseUrl+'user-login',
+			url: this.baseUrl+'users/userLogin.json',
 			method : 'POST',
 			dataType: 'json',
 			search : {
@@ -68,7 +90,7 @@ export class ApiService {
 
 	usersList(){
 		return {
-			url: this.baseUrl+'users-list',
+			url: this.baseUrl+'users/getUsers.json',
 			method : 'GET',
 			dataType: 'json',			
 			search : {

@@ -1,49 +1,61 @@
-<div class="right-form-conatiner">
-<div class="row">
-    <div class="col-lg-12">
-        <div class="search-container">
-            <div class="search-body">            
-                <form action="" method="post" novalidate="novalidate">
-                    <div class="form-group col col-sm-4 search-div">                  
-                        <input id="cc-pament" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false" placeholder="Search" [(ngModel)]="searchKey">
-                        <button type="submit" (click)="users(searchKey)" class="btn-margin btn btn-primary btn-sm" >Search</button>
-                    </div>
-                    <div class="add-new">
-                        <a [routerLink]="['add-user']" >
-                            <input type="button" class="btn-margin au-btn au-btn-icon au-btn--blue" value="Add New" >
-                        </a>
-                    </div>
-                </form>
+<div class="animated fadeIn">
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="card">
+            <div class="card-header">
+               <i class="fa fa-align-justify"></i> Users List
+               <div class="add-new">                  
+                  <div class="float-right">
+                    <a [routerLink]="['add-user']" >
+                        <button _ngcontent-c0="" class="btn btn-primary" type="button">Add New</button>
+                    </a>    
+                </div>
+               </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="table-responsive table--no-card m-b-30">
-            <table class="table table-borderless table-striped table-earning">
-                <thead>
-                    <tr>
+            <div class="card-body">
+               <div class="row mb-3">
+                  <div class="col-md-4 offset-md-8">
+                    <form (ngSubmit)="dataList(searchKey)" method="post" novalidate="novalidate">
+                        <div class="input-group">                        
+                           <div class="input-group-prepend">
+                              <span class="input-group-text">
+                              <i class="fa fa-search"></i>
+                              </span>
+                           </div>
+                           <input id="cc-pament" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false" placeholder="Search" [(ngModel)]="searchKey">
+                        </div>
+                    </form>
+                  </div>
+               </div>
+               <table class="table">
+                  <thead>
+                     <tr>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th class="text-right">Zip Code</th>
                         <th class="text-right">Country</th>
-                        <th class="text-right">Status</th>                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let user of usersData">
-                        <td>{{user.name}}</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.phone}}</td>
-                        <td class="text-right">{{user.zip_code}}</td>
-                        <td class="text-right">{{user.country}}</td>
-                        <td class="text-right">{{user.status}}</td>                        
-                    </tr>                    
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                        <th class="text-right">Status</th>
+                     </tr>
+                  </thead>
+                  <tbody>                     
+                     <tr *ngFor="let row of rowData | paginate: { itemsPerPage: limit, currentPage: p1, id: 'my_pagination', totalItems: total_records }">   
+                        <td>{{row.User.first_name}}</td>
+                        <td>{{row.User.email}}</td>
+                        <td>{{row.User.mobile_number}}</td>
+                        <td class="text-right">{{row.User.zip_code}}</td>
+                        <td class="text-right">{{row.User.country}}</td>
+                        <td class="text-right"> 
+                            <span class="badge badge-{{(row.User.status == '1')?'success':'danger'}}">{{(row.User.status == '1')?'success':'Inactive'}}</span>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <div class="float-right">
+                  <pagination-controls class="pagination" (pageChange)="onPageChange(p1 = $event)" id="my_pagination"></pagination-controls> 
+               </div>                 
+            </div>
+         </div>
+      </div>
+   </div>
 </div>

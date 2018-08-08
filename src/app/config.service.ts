@@ -9,7 +9,9 @@ export class ConfigService {
 
   	public configInfo : {} = ''; // aise he
 
-	public apiUrl = 'http://localhost:3000/';
+	//public apiUrl = 'http://localhost:3000/';
+
+	public apiUrl = 'http://192.168.254.59/victoryledbackend/';
 
 	public pusherTimeout = 60*60*1000;  // 1 Hour
 

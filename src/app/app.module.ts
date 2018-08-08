@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
 import { ConfigService } from './config.service';
 import { ApiService } from './api.service';
@@ -23,7 +24,8 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     HttpModule,
     AppRoutesModule,
-    DashboardModule
+    DashboardModule,
+    NgxPaginationModule
   ],
   declarations: [
     AppComponent,

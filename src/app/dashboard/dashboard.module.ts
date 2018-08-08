@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DashboardRouteModule, dashboardRoutingComponents } from './dashboard-route.module';
-
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { DefaultLayoutComponent } from '../dashboard/containers';
 const APP_CONTAINERS = [
   DefaultLayoutComponent
@@ -22,15 +22,16 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 @NgModule({
   imports: [
     CommonModule,
+    NgxPaginationModule,
     DashboardRouteModule,
     FormsModule,
     AppAsideModule,
-	AppBreadcrumbModule.forRoot(),
-	AppHeaderModule,
-	AppFooterModule,
-	AppSidebarModule,
-	PerfectScrollbarModule,
-	TabsModule.forRoot(),
+  	AppBreadcrumbModule.forRoot(),
+  	AppHeaderModule,
+  	AppFooterModule,
+  	AppSidebarModule,
+  	PerfectScrollbarModule,
+  	TabsModule.forRoot(),
   ],
   declarations: [
   dashboardRoutingComponents,
