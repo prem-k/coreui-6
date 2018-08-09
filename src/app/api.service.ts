@@ -11,6 +11,8 @@ export class ApiService {
 	public baseUrl : any = '';
 	public uploadPath : any = '';
 
+	public successMsg:any = 'Record Save';
+
   	constructor(private http : Http, private configService : ConfigService) {
   		this.baseUrl = configService.apiUrl;
   		this.uploadPath = this.configService.apiUrl.replace('index.php/','')+'assets/uploads/';
@@ -55,8 +57,11 @@ export class ApiService {
     }
 
     parseResponse(res){
-    	let response = res.json();
-    	return response.apiResponse;
+    	if(res){
+    		let response = res.json();
+    		return response.apiResponse;
+    	}
+    	return {};
     }
 
     login(){
@@ -79,7 +84,7 @@ export class ApiService {
 
 	addUser(){
 		return {
-			url: this.baseUrl+'add-user',
+			url: this.baseUrl+'users/register.json',
 			method : 'POST',
 			dataType: 'json',			
 			data: {
@@ -94,6 +99,8 @@ export class ApiService {
 			method : 'GET',
 			dataType: 'json',			
 			search : {
+				id : '',
+				u_id : '0',
 				key : '',
 				offset : 0,
 				limit : this.pageLimit	
@@ -101,9 +108,9 @@ export class ApiService {
 		};
 	};
 
-	categoryList(){
+	addUpdateInquary(){
 		return {
-			url: this.baseUrl+'category-list',
+			url: this.baseUrl+'inquries/addUpdateInquary.json',
 			method : 'GET',
 			dataType: 'json',			
 			search : {
@@ -115,41 +122,18 @@ export class ApiService {
 		};
 	};
 
-	addCategory(){
+	getInquries(){
 		return {
-			url: this.baseUrl+'category/add-category',
-			method : 'POST',
-			dataType: 'json',			
-			data: {
-
-			}
-		};
-	};
-
-	products(){
-		return {
-			url: this.baseUrl+'products',
+			url: this.baseUrl+'inquries/getInquiries.json',
 			method : 'GET',
 			dataType: 'json',			
 			search : {
 				key : '',
+				type : '',
 				offset : 0,
 				limit : this.pageLimit	
 			}
 		};
 	};
-
-	addProduct(){
-		return {
-			url: this.baseUrl+'products/add',
-			method : 'POST',
-			dataType: 'json',			
-			search : {
-				key : '',
-				offset : 0,
-				limit : this.pageLimit	
-			}
-		};
-	}
 
 }

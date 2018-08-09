@@ -18,7 +18,6 @@ import {
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -36,6 +35,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
   declarations: [
   dashboardRoutingComponents,
   ...APP_CONTAINERS,
+  
   ]
 })
 export class DashboardModule { }

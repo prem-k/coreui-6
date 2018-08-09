@@ -1,0 +1,23 @@
+.error{
+	color: red;
+}
+.margin-right-10 {
+	margin-right: 10px;
+}
+
+.margin-right-15 {
+	margin-right: 15px;
+}
+
+.margin-right-20 {
+	margin-right: 20px;
+}
+
+.successMsg{
+	background-color: #4dbd74;
+    border-radius: 10px;
+    color: white;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-size: 16px;
+}

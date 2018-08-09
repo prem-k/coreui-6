@@ -4,12 +4,7 @@
          <div class="successMsg" *ngIf="successMsg">{{successMsg}}</div>
          <div class="card">
             <div class="card-header">
-               <i class="fa fa-align-justify"></i> Users
-                  <div class="add-new float-right">
-                    <a [routerLink]="['add']" >
-                        <button _ngcontent-c0="" class="btn btn-primary" type="button">Add New</button>
-                    </a>    
-                  </div>
+               <i class="fa fa-align-justify"></i> Enquiry Register                  
             </div>
             <div class="card-body">
                <div class="row mb-3">
@@ -29,30 +24,24 @@
                <table class="table">
                   <thead>
                      <tr>
-                        <th>Sponsor ID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th class="text-right">Zip Code</th>
-                        <th class="text-right">City</th>
-                        <th class="text-right">Status</th>
-                        <th class="text-right">Action</th>
+                        <th>Remark</th>
+                        <th>Resolve By</th>
+                        <th>Status</th>
                      </tr>
                   </thead>
                   <tbody>                     
                      <tr *ngFor="let row of rowData | paginate: { itemsPerPage: limit, currentPage: p1, id: 'my_pagination', totalItems: total_records }">   
-                        <td>{{row.User.u_id}}</td>
-                        <td>{{row.User.first_name}}</td>
-                        <td>{{row.User.email}}</td>
-                        <td>{{row.User.mobile_number}}</td>
-                        <td class="text-right">{{row.User.zip_code}}</td>
-                        <td class="text-right">{{row.User.city}}</td>
-                        <td class="text-right"> 
-                            <span class="badge badge-{{(row.User.status == '1')?'success':'danger'}}">{{(row.User.status == '1')?'Active':'Inactive'}}</span>
-                        </td>
-                        <td class="text-right"> 
-                           <a href title="Edit" [routerLink]="['add/' + row.User.id]" > <i class="icon-note"></i></a>
-                        </td>
+                        <td>{{row.Inquary.name}}</td>
+                        <td>{{row.Inquary.email}}</td>
+                        <td>{{row.Inquary.mobile}}</td>
+                        <td>{{row.Inquary.remark}}</td>
+                        <td>{{row.Inquary.resolve_by}}</td>
+                        <td> 
+                            <span class="badge badge-{{(row.Inquary.status == '1')?'success':'danger'}}">{{(row.Inquary.status == '1')?'Active':'Inactive'}}</span>
+                        </td>                        
                      </tr>
                   </tbody>
                </table>

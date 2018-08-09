@@ -1,110 +1,156 @@
-<div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <form name="form" method="post" #f="ngForm" (ngSubmit)="f.form.valid && saveData()" novalidate>
-        <div class="card-header">
-            <strong>Add New User</strong>
-            <div class="float-right">
-                <a title="Back" [routerLink]="['/dashboard/users']"> <button class="btn btn-success btn-sm">Back</button></a> &nbsp;&nbsp;&nbsp;
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <i class="fa fa-dot-circle-o"></i> Save
-                </button> 
-            </div>    
-        </div>
-        <div class="card-body card-block">  
-            <div class="form-group">
-                <label for="type" class="form-control-label">User Type</label>             
-                <select [(ngModel)]="form.type" name="type" id="type" class="form-control">
-                    <option value="1">Site Admin</option>
-                    <option value="2">Normal User</option>
-                </select>
-            </div>        
-            <div class="form-group">
-                <label for="name" class="form-control-label">Name</label>
-                <input type="text" [(ngModel)]="form.name" name="name" id="name" placeholder="Name" class="form-control" #name="ngModel" required>
-                <div *ngIf="f.submitted && name.invalid" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }">
-                    <div *ngIf="name.errors.required" class="error">First Name is required</div>
-                </div>                
-            </div>
-            <div class="form-group">
-                <label for="email" class="form-control-label">Email</label>
-                <input type="text" [(ngModel)]="form.email" name="email" id="email" placeholder="Email" class="form-control" #email="ngModel" required>
-                <div *ngIf="f.submitted && email.invalid" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }">
-                    <div *ngIf="email.errors.required" class="error">Email is required</div>
-                </div> 
-                <div *ngIf="f.submitted && form.errors && form.errors.unique_user" class="error">This email already exist.</div>
-            </div>
-            <div class="form-group">
-                <label for="password" class="form-control-label">Password</label>
-                <input type="password" [(ngModel)]="form.password" name="password" id="password" placeholder="Password" class="form-control" #password="ngModel" required>
-                <div *ngIf="f.submitted && password.invalid" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }">
-                    <div *ngIf="password.errors.required" class="error">Password is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="phone" class="form-control-label">Phone</label>
-                <input type="text" [(ngModel)]="form.phone" name="phone" id="phone" placeholder="Phone" class="form-control" #phone="ngModel" required>
-                <div *ngIf="f.submitted && phone.invalid" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }">
-                    <div *ngIf="phone.errors.required" class="error">Phone is required</div>
-                </div>
-            </div>
-            <div class="form-group">                
-                <label class="form-control-label">Gender</label>                
-                <div class="">
-                    <div class="form-check-inline form-check">
-                        <label for="inline-radio1" class="form-check-label ">
-                            <input [(ngModel)]="form.gender" name="gender" type="radio" id="inline-radio1" name="inline-radios" value="male" class="form-check-input">Male &nbsp;&nbsp;
-                        </label>
-                        <label for="inline-radio2" class="form-check-label ">
-                            <input [(ngModel)]="form.gender" name="gender" type="radio" id="inline-radio2" name="inline-radios" value="option2" class="form-check-input">Female
-                        </label>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="icon-note"></i>
+                    <strong>{{(id>0)?'Edit':'Add'}} New User</strong>
+                    <div class="float-right">
+                        <a title="Back" [routerLink]="['/dashboard/users']">
+                            <button class="btn btn-success btn-primary">Back</button>
+                        </a>
+                        <!-- <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-dot-circle-o"></i> Save
+                        </button> -->
                     </div>
-                </div>                           
-            </div>
-            <div class="form-group">
-                <label for="country" class="form-control-label">Country</label>
-                <select [(ngModel)]="form.country" name="country" id="country" class="form-control" #country="ngModel" required>
-                    <option value="0">Select Country</option>
-                    <option value="India">India</option>
-                    <option value="Pakistan">Pakistan</option>
-                    <option value="USA">USA</option>
-                </select>
-                <div *ngIf="f.submitted && form.country == '0'" [ngClass]="{ 'is-invalid': f.submitted && country.invalid }">
-                    <div *ngIf="form.country == '0'" class="error">Country is required</div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="status" class="form-control-label">Status</label>
-                <select [(ngModel)]="form.status" name="status" id="status" class="form-control">
-                    <option value="0">Select Status</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="zip_code" class="form-control-label">Zip Code</label>
-                <input type="text" [(ngModel)]="form.zip_code" name="zip_code" id="zip_code" placeholder="Zip Code" class="form-control" #zip_code="ngModel" required>
-                <div *ngIf="f.submitted && zip_code.invalid" [ngClass]="{ 'is-invalid': f.submitted && zip_code.invalid }">
-                    <div *ngIf="zip_code.errors.required" class="error">Zip Code is required</div>
+                <div class="card-body card-block">
+                    <form name="form" method="post" #f="ngForm" (ngSubmit)="f.form.valid && saveData()" novalidate> 
+                        <div class="form-group">
+                            <label for="user_role" class="form-control-label">User Role</label>
+                            <select [(ngModel)]="form.user_role" name="user_role" id="user_role" class="form-control">
+                                <option value="1">Admin</option>
+                                <option value="2">User</option>
+                            </select>
+                        </div>                       
+                        <div class="form-group">
+                            <label for="first_name" class="form-control-label">User Name</label>
+                            <input type="text" [(ngModel)]="form.first_name" name="first_name" id="first_name" placeholder="Name" class="form-control" #first_name="ngModel" required>
+                            <div *ngIf="f.submitted && first_name.invalid" [ngClass]="{ 'is-invalid': f.submitted && first_name.invalid }">
+                                <div *ngIf="first_name.errors.required" class="error">First Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-control-label">Email ID</label>
+                            <input type="text" [(ngModel)]="form.email" name="email" id="email" placeholder="Email" class="form-control" #email="ngModel" required>
+                            <div *ngIf="f.submitted && email.invalid" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }">
+                                <div *ngIf="email.errors.required" class="error">Email is required</div>
+                            </div>
+                            <div *ngIf="f.submitted && errors && errors.unique_user" class="error">This email already exist.</div>
+                        </div>
+                        <div class="form-group" *ngIf="id === ''">
+                            <label for="password" class="form-control-label">Password</label>
+                            <input type="password" [(ngModel)]="form.password" name="password" id="password" placeholder="Password" class="form-control" #password="ngModel" required>
+                            <div *ngIf="f.submitted && password.invalid" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }">
+                                <div *ngIf="password.errors.required" class="error">Password is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="u_id" class="form-control-label">Sponsor ID</label>
+                            <input type="text" [(ngModel)]="form.u_id" name="u_id" id="u_id" placeholder="Sponsor ID" class="form-control" #u_id="ngModel" required (ngModelChange)="validateSponserId(form.u_id)">
+                            <div *ngIf="f.submitted && u_id.invalid" [ngClass]="{ 'is-invalid': f.submitted && u_id.invalid }">
+                                <div *ngIf="u_id.errors.required" class="error">Phone is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sponsor_name" class="form-control-label">Sponsor name</label>
+                            <input disabled type="text" [(ngModel)]="form.sponsor_name" name="phone" id="sponsor_name" placeholder="Sponsor Name" class="form-control" #sponsor_name="ngModel" required>
+                            <div *ngIf="f.submitted && sponsor_name.invalid" [ngClass]="{ 'is-invalid': f.submitted && sponsor_name.invalid }">
+                                <div *ngIf="sponsor_name.errors.required" class="error">Sponsor name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="form-control-label">Name</label>
+                            <input type="text" [(ngModel)]="form.name" name="name" id="name" placeholder="Name" class="form-control" #name="ngModel" required>
+                            <div *ngIf="f.submitted && name.invalid" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }">
+                                <div *ngIf="name.errors.required" class="error">Phone is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Gender</label>
+                            <div class="">
+                                <div class="form-check-inline form-check">
+                                    <label for="inline-radio1" class="form-check-label ">
+                                        <input [(ngModel)]="form.gender" name="gender" type="radio" id="inline-radio1" name="inline-radios" value="1" class="form-check-input">Male &nbsp;&nbsp;
+                                    </label>
+                                    <label for="inline-radio2" class="form-check-label ">
+                                        <input [(ngModel)]="form.gender" name="gender" type="radio" id="inline-radio2" name="inline-radios" value="2" class="form-check-input">Female
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="father_name" class="form-control-label">Father's name</label>
+                            <input type="text" [(ngModel)]="form.father_name" name="father_name" id="father_name" placeholder="Father's name" class="form-control" #father_name="ngModel" required>
+                            <div *ngIf="f.submitted && father_name.invalid" [ngClass]="{ 'is-invalid': f.submitted && father_name.invalid }">
+                                <div *ngIf="father_name.errors.required" class="error">Father's name is required</div>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="date_of_birth" class="form-control-label">DOB</label>
+                            <input type="date" [(ngModel)]="form.date_of_birth" name="date_of_birth" id="date_of_birth" placeholder="Zip Code" class="form-control" #date_of_birth="ngModel" required>
+                            <div *ngIf="f.submitted && date_of_birth.invalid" [ngClass]="{ 'is-invalid': f.submitted && date_of_birth.invalid }">
+                                <div *ngIf="date_of_birth.errors.required" class="error">D.O.B is required</div>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="mobile_number" class="form-control-label">Mobile</label>
+                            <input type="number" [(ngModel)]="form.mobile_number" name="mobile_number" id="mobile_number" placeholder="Zip Code" class="form-control" #mobile_number="ngModel" required>
+                            <div *ngIf="f.submitted && mobile_number.invalid" [ngClass]="{ 'is-invalid': f.submitted && mobile_number.invalid }">
+                                <div *ngIf="mobile_number.errors.required" class="error">Mobile is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="form-control-label">Address</label>
+                            <textarea id="address" [(ngModel)]="form.address" name="address" placeholder="Address" class="form-control" #address="ngModel" required></textarea>
+                            <div *ngIf="f.submitted && address.invalid" [ngClass]="{ 'is-invalid': f.submitted && address.invalid }">
+                                <div *ngIf="address.errors.required" class="error">Address is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="form-control-label">City</label>
+                            <input type="text" [(ngModel)]="form.city" name="city" id="city" placeholder="City" class="form-control" #city="ngModel" required>
+                            <div *ngIf="f.submitted && city.invalid" [ngClass]="{ 'is-invalid': f.submitted && city.invalid }">
+                                <div *ngIf="city.errors.required" class="error">City is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="state" class="form-control-label">State</label>
+                            <select [(ngModel)]="form.state" name="state" id="state" class="form-control">
+                                <option value="0">Select State</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div> 
+                        <div class="form-group">
+                            <label for="zip_code" class="form-control-label">Pin Code</label>
+                            <input type="text" [(ngModel)]="form.zip_code" name="zip_code" id="zip_code" placeholder="Zip Code" class="form-control" #zip_code="ngModel" required>
+                            <div *ngIf="f.submitted && zip_code.invalid" [ngClass]="{ 'is-invalid': f.submitted && zip_code.invalid }">
+                                <div *ngIf="zip_code.errors.required" class="error">Pin Code is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pan_no" class="form-control-label">PAN</label>
+                            <input type="text" [(ngModel)]="form.pan_no" name="pan_no" id="pan_no" placeholder="PAN" class="form-control" #pan_no="ngModel" required>
+                            <div *ngIf="f.submitted && pan_no.invalid" [ngClass]="{ 'is-invalid': f.submitted && pan_no.invalid }">
+                                <div *ngIf="pan_no.errors.required" class="error">PAN is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status" class="form-control-label">Status</label>
+                            <select [(ngModel)]="form.status" name="status" id="status" class="form-control">
+                                <option value="0">Select Status</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>                        
+                        <div class="card-footer">
+                            <button type="reset" class="btn btn-primary btn-danger margin-right-15"><i class="fa fa-ban"></i> Reset</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="address" class="form-control-label">Address</label>
-                <textarea id="address" [(ngModel)]="form.address" name="address" placeholder="Address" class="form-control" #address="ngModel" required></textarea>
-                <div *ngIf="f.submitted && address.invalid" [ngClass]="{ 'is-invalid': f.submitted && address.invalid }">
-                    <div *ngIf="address.errors.required" class="error">Address is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-            <a title="Back" [routerLink]="['/dashboard/users']">
-                <button class="btn btn-success btn-sm">Back</button>
-            </a>&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <i class="fa fa-dot-circle-o"></i> Save
-                </button>
             </div>
         </div>
-        </form>
     </div>
-  </div>
 </div>

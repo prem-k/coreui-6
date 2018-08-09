@@ -7,7 +7,8 @@ import { UsersComponent } from './users/users.component';
 import { AddUserComponent } from './users/add-user.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-
+import { InquiryComponent } from './inquiry/inquiry.component';
+import { SuggestionComponent } from './suggestion/suggestion.component';
 
 const routes: Routes = [
 	{
@@ -43,10 +44,31 @@ const routes: Routes = [
 				} 
 			},
 			{ 
-				path : 'users/add-user', 
+				path : 'users/add', 
 				component : AddUserComponent,
 				data : {
-					title : 'User'
+					title : 'Add User'
+				} 
+			},
+			{ 
+				path : 'users/add/:id', 
+				component : AddUserComponent,
+				data : {
+					title : 'Edit User'
+				} 
+			},
+			{ 
+				path : 'enquiry', 
+				component : InquiryComponent,
+				data : {
+					title : 'Enquiry'
+				} 
+			},
+			{ 
+				path : 'suggestion', 
+				component : SuggestionComponent,
+				data : {
+					title : 'Enquiry'
 				} 
 			}
 		]
